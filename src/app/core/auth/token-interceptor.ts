@@ -4,8 +4,6 @@ import { catchError, switchMap, throwError } from 'rxjs';
 import { AuthService } from './auth';
 
 export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
-  console.log(1);
-  
   const authService = inject(AuthService);  // inject AuthService instance
   const accessToken = localStorage.getItem('accessToken');
 
@@ -15,8 +13,6 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
       setHeaders: { Authorization: `Bearer ${accessToken}` }
     });
   }
-
-  console.log(2);
   
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
